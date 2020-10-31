@@ -1,9 +1,9 @@
 # wireguard-setup
 
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![GitHub last commit (branch)](https://img.shields.io/github/last-commit/wolffaxn/wireguard/main.svg)](https://github.com/wolffaxn/wireguard-setup)
+[![GitHub last commit (branch)](https://img.shields.io/github/last-commit/wolffaxn/wireguard-setup/main.svg)](https://github.com/wolffaxn/wireguard-setup)
 
-> wireguard-setup.
+> wireguard-setup
 
 ## License
 
