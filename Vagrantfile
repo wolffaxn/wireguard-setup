@@ -1,6 +1,11 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+$nocloud_iso = File.expand_path(
+  "./iso/nocloud.iso",
+  File.dirname(__FILE__)
+)
+
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
@@ -21,11 +26,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # disable automatic box update checking
     wg.vm.box_check_update = false
 
-    # NFS requires a host-only network to be created
-    wg.vm.network :private_network, ip: "10.0.20.10"
-
-    wg.vm.synced_folder ".", "/vagrant", type: "nfs"
-
     wg.vm.provider "virtualbox" do |vb|
       vb.customize ["modifyvm", :id, "--hwvirtex", "on"]
       vb.customize ["modifyvm", :id, "--cpus", "1"]
@@ -33,6 +33,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.customize ["modifyvm", :id, "--audio", "none"]
       vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
       vb.customize ["modifyvm", :id, "--nictype2", "virtio"]
+
+      if File.exist?($nocloud_iso)
+        vb.customize [
+          "storageattach", :id,
+          "--storagectl", "SCSI",
+          "--port", "1",
+          "--type", "dvddrive",
+          "--medium", "#{$nocloud_iso}"
+        ]
+      end
     end
   end
 end
